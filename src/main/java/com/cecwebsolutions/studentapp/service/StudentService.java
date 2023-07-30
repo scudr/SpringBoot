@@ -2,6 +2,9 @@ package com.cecwebsolutions.studentapp.service;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,12 +17,18 @@ public class StudentService {
 	@Autowired
 	private final StudentRepository repository;
 
+	// Autowiring DataSource
+//	@Autowired
+//	private DataSource dataSource;
+
 	public StudentService(StudentRepository repository) {
 		this.repository = repository;
 	}
 
 	public List<Student> getAllStudents() {
-		return (List<Student>) repository.findAll();
+		List<Student> students = (List<Student>) repository.findAll();
+		System.out.println(students);
+		return students;
 	}
 
 	public Student saveStudent(Student student) {
@@ -29,5 +38,10 @@ public class StudentService {
 	public Student getStudent(Long id) {
 		return repository.findById(id).orElse(null);
 	}
+
+//	@PostConstruct
+//	public void printDataSource() {
+//		System.out.println(dataSource);
+//	}
 
 }
